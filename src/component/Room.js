@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import "../App.css";
 import { SoftShadows, CameraControls, useGLTF } from "@react-three/drei";
@@ -18,40 +18,83 @@ function Room() {
   const [depth, setDepth] = useState(5);
   const [show3Dimage, setShow3Dimage] = useState([]);
   const [thickness, setThickness] = useState(0.2);
-  const table1 = useLoader(GLTFLoader, "/sofa_and_table.glb");
-  const table2 = useLoader(GLTFLoader, "/modern_dining_table.glb");
-  const tables = [table2, table1];
+  let table_sofa = useLoader(GLTFLoader, "/table_sofa.glb");
+  let table = useLoader(GLTFLoader, "/modern_dining_table.glb");
+  let showcase = useLoader(GLTFLoader, "/showcase.glb");
+  let television = useLoader(GLTFLoader, "/television.glb");
+  let cup = useLoader(GLTFLoader, "/cup_and_plate.glb"); 
+   let table_sofa_1 = useLoader(GLTFLoader, "/table_sofa_1.glb");
+  let table_1 = useLoader(GLTFLoader, "/modern_dining_table_1.glb");
+  let showcase_1 = useLoader(GLTFLoader, "/showcase_1.glb");
+  let television_1 = useLoader(GLTFLoader, "/television_1.glb");
+  let cup_1 = useLoader(GLTFLoader, "/cup_and_plate_1.glb");
+  const items = [table_sofa, table, showcase, television, cup];
+  const duplicate_items = [table_sofa_1, table_1, showcase_1, television_1, cup_1];
+  // console.log(items[0].scenes[0].parent.position,"posit-after")
+  
+  // useEffect(() => {
+  // if(show3Dimage[0]){
+  //   console.log(items[0].scenes[0].parent.position,"items")
+  //   console.log(show3Dimage[0].scenes[0].parent.position,"show3Dimage")}
+    
+  // }, [show3Dimage]);
+
+  // const flower = useLoader(GLTFLoader, "/stylized_flower_pot.glb");
+
+  // const items = [table1, table2, showcase, television, cup];
+  // const duplicate_items = [table1, table2, showcase, television, cup];
+
+
+
   const meshRef = useRef();
   // console.log(show3Dimage)
 
-  const Furniture = () => {
+  const Furnitures = () => {
     const tablePositions = [
-      { x: 0, y: 0, z: 0 }, // Example position 1
-      { x: 2, y: 0, z: 0 }, // Example position 2
-      { x: 0, y: 0, z: 2 }, // Example position 3
-      // Add more positions as needed
+      { x: 0, y: 2, z: 0 }, 
+      { x: 0, y: 1, z: 0 },    
+      { x: 0, y: 0, z: 0 }, 
+      { x: 0, y: -1.5, z: 0 },
+      { x: 0, y: -1.8, z: 0 },
+    
+  
     ];
+ 
     const tableScales = [
-      { x: 0.0005, y: 0.0005, z: 0.0005 }, // Example scale 1
-      { x: 0.002, y: 0.002, z: 0.002 }, // Example scale 2
-      { x: 0.0006, y: 0.0006, z: 0.0006 }, // Example scale 3
+      { x: 0.0004, y: 0.0004, z: 0.0004 }, // Example scale 1
+      { x: 0.0004, y: 0.0004, z: 0.0004 }, // Example scale 2
+      { x: 0.002, y: 0.002, z: 0.002 },
+      { x: 0.05, y: 0.05, z: 0.05 },
+      { x: 50, y: 50, z: 50 },
+  
       // Add more scales as needed
     ];
+    console.log(items)
     return (
       <>
-        {tables.map((furniture, index) => (
+        {items.map((furniture, index) => (
           <>
             <mesh
-            key={index}
-            onClick={((table) => setShow3Dimage([...show3Dimage,furniture]))}
-            position={[tablePositions[index].x, tablePositions[index].y, tablePositions[index].z]}
-          >
-          <primitive
-            object={furniture.scene}
-            ref={meshRef}
-            scale={[tableScales[index].x,tableScales[index].y,tableScales[index].z,]}
-          />
-          </mesh>
+              key={index}
+              // onClick={(tbl) => (console.log(duplicate_items[index]))}
+
+              onClick={(tbl) => setShow3Dimage([...show3Dimage, duplicate_items[index]])}
+              position={[
+                tablePositions[index].x,
+                tablePositions[index].y,
+                tablePositions[index].z,
+              ]}
+            >
+              <primitive
+                object={furniture.scene}
+                ref={meshRef}
+                scale={[
+                  tableScales[index].x,
+                  tableScales[index].y,
+                  tableScales[index].z,
+                ]}
+              />
+            </mesh>
           </>
         ))}
       </>
@@ -59,42 +102,58 @@ function Room() {
   };
 
   const RoomFurniture = () => {
-    const tablePositions = [
-      { x: 0, y: 0, z: 0 }, // Example position 1
-      { x: 2, y: 0, z: 0 }, // Example position 2
-      { x: 0, y: 0, z: 2 }, // Example position 3
+    const tablePosition = [
+      { x: 2, y: 0, z: 0 }, // Example position 1
+      { x: 0, y: 0, z: 0 }, // Example position 2
+      { x: 1, y: 0, z: 0 },
+      { x: 2, y: 1, z: 0 },
+      { x: 0, y: 0, z: 8 }, // Example position 3
       // Add more positions as needed
     ];
-    const tableScales = [
+    const tableScale = [
       { x: 0.0005, y: 0.0005, z: 0.0005 }, // Example scale 1
-      { x: 0.002, y: 0.002, z: 0.002 }, // Example scale 2
-      { x: 0.0006, y: 0.0006, z: 0.0006 }, // Example scale 3
+      { x: 0.0002, y: 0.0002, z: 0.0002 }, // Example scale 2
+      { x: 0.006, y: 0.006, z: 0.006 },
+      { x: 0.05, y: 0.05, z: 0.05 },
+      { x: 0.0005, y: 0.0005, z: 0.0005 }, // Example scale 3
       // Add more scales as needed
     ];
-  
+
     const handleFurnitureClick = (selectedFurniture) => {
-      setShow3Dimage((prevFurniture) => prevFurniture.filter((furniture) => furniture !== selectedFurniture));
+      setShow3Dimage((prevFurniture) =>
+        prevFurniture.filter((furniture) => furniture !== selectedFurniture)
+      );
     };
-  
+
     return (
       <>
         {show3Dimage.map((selected_table, index) => (
+      
           <mesh
             key={index}
+            className="card"
             onClick={() => handleFurnitureClick(selected_table)}
-            position={[tablePositions[index].x, tablePositions[index].y, tablePositions[index].z]}
+            position={[
+              tablePosition[index].x,
+              tablePosition[index].y,
+              tablePosition[index].z,
+            ]}
           >
             <primitive
               object={selected_table.scene}
               ref={meshRef}
-              scale={[tableScales[index].x, tableScales[index].y, tableScales[index].z]}
+              scale={[
+                tableScale[index].x,
+                tableScale[index].y,
+                tableScale[index].z,
+              ]}
             />
           </mesh>
         ))}
       </>
     );
   };
-  
+
   function Light() {
     const ref = useRef();
     useFrame((state, delta) => {
@@ -125,7 +184,7 @@ function Room() {
 
   function Box(props) {
     const mesh = useRef();
-    return ( 
+    return (
       <mesh {...props} ref={mesh} castShadow material={props.material}>
         <boxBufferGeometry />
       </mesh>
@@ -214,15 +273,15 @@ function Room() {
       </button>
       <Container fluid>
         <Row>
-        <div className="col-lg-4">
+          <div className="col-lg-2">
             <Canvas>
-           
-              <CameraControls />
+              
+            <CameraControls makeDefault />
               <Light />
-              <Furniture />
+              <Furnitures />
             </Canvas>
           </div>
-         
+
           <div className="col-lg-4">
             <div className="login-page">
               <div className="form">
@@ -295,12 +354,11 @@ function Room() {
                     thickness={thickness}
                     materials={materials}
                   />
-                  <RoomFurniture/>
+                  <RoomFurniture />
                 </Canvas>
               )}
             </div>
           </div>
-       
         </Row>
       </Container>
     </div>
