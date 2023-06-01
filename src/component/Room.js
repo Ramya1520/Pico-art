@@ -22,27 +22,33 @@ function Room() {
   let table = useLoader(GLTFLoader, "/modern_dining_table.glb");
   let showcase = useLoader(GLTFLoader, "/showcase.glb");
   let television = useLoader(GLTFLoader, "/tv_stand.glb");
-  let cup = useLoader(GLTFLoader, "/cup_and_plate.glb"); 
+  let cup = useLoader(GLTFLoader, "/cup_and_plate.glb");
   let table_sofa_1 = useLoader(GLTFLoader, "/table_sofa_1.glb");
   let table_1 = useLoader(GLTFLoader, "/modern_dining_table_1.glb");
   let showcase_1 = useLoader(GLTFLoader, "/showcase_1.glb");
   let television_1 = useLoader(GLTFLoader, "/tv_stand_1.glb");
   let cup_1 = useLoader(GLTFLoader, "/cup_and_plate_1.glb");
-  const items = [table_sofa, table, showcase, cup,television ];
-  const duplicate_items = [table_sofa_1, table_1, showcase_1, cup_1,television_1];
+  const items = [table_sofa, table, showcase, cup, television];
+  const duplicate_items = [
+    table_sofa_1,
+    table_1,
+    showcase_1,
+    cup_1,
+    television_1,
+  ];
 
   const meshRef = useRef();
 
   const Furnitures = () => {
     const tablePositions = [
-      { x: 0, y: 2, z: 0 }, 
-      { x: 0, y: 1, z: 0 },    
-      { x: 0, y: 0, z: 0 }, 
-       { x: 0, y:-0.5, z: 0 },
+      { x: 0, y: 2, z: 0 },
+      { x: 0, y: 1, z: 0 },
+      { x: 0, y: 0, z: 0 },
+      { x: 0, y: -0.5, z: 0 },
       { x: 0, y: -2, z: 0 },
     ];
     const tableScales = [
-      { x: 0.0004, y: 0.0004, z: 0.0004 }, 
+      { x: 0.0004, y: 0.0004, z: 0.0004 },
       { x: 0.0004, y: 0.0004, z: 0.0004 }, // Example scale 2
       { x: 0.002, y: 0.002, z: 0.002 },
       { x: 50, y: 50, z: 50 },
@@ -54,7 +60,9 @@ function Room() {
           <>
             <mesh
               key={index}
-              onClick={(tbl) => setShow3Dimage([...show3Dimage, duplicate_items[index]])}
+              onClick={(tbl) =>
+                setShow3Dimage([...show3Dimage, duplicate_items[index]])
+              }
               position={[
                 tablePositions[index].x,
                 tablePositions[index].y,
@@ -71,7 +79,6 @@ function Room() {
                 ]}
               />
             </mesh>
-            
           </>
         ))}
       </>
@@ -80,18 +87,18 @@ function Room() {
 
   const RoomFurniture = () => {
     const tablePosition = [
-      { x: 0, y: 0, z: 0 }, 
-      { x: 0, y: 0, z: 0 }, 
+      { x: 0, y: 0, z: 0 },
+      { x: 0, y: 0, z: 0 },
       { x: 1, y: 0, z: 0 },
       { x: 2, y: 1, z: 0 },
-      { x: 0, y: 0, z: 8 }, 
+      { x: 0, y: 0, z: 8 },
     ];
     const tableScale = [
-      { x: 0.01, y: 0.01, z: 0.01 },
-      { x: 0.0002, y: 0.0002, z: 0.0002 }, 
+      { x: 0.001, y: 0.001, z: 0.001 },
+      { x: 0.0002, y: 0.0002, z: 0.0002 },
       { x: 0.006, y: 0.006, z: 0.006 },
       { x: 0.05, y: 0.05, z: 0.05 },
-      { x: 0.0005, y: 0.0005, z: 0.0005 }, 
+      { x: 0.0005, y: 0.0005, z: 0.0005 },
     ];
 
     const handleFurnitureClick = (selectedFurniture) => {
@@ -103,7 +110,6 @@ function Room() {
     return (
       <>
         {show3Dimage.map((selected_table, index) => (
-      
           <mesh
             key={index}
             className="card"
@@ -166,22 +172,32 @@ function Room() {
     );
   }
 
-  const TwoD = () => {
-    const { camera } = useThree();
-    useFrame(() => {
-      camera.position.z = 100;
-      camera.lookAt(0, 2, 0);
-    });
-
+  function TwoD({ width, height, depth, thickness, materials }) {
     return (
       <group dispose={null}>
-        <mesh position={[0, 0, -depth / 2]} receiveShadow>
-          <planeBufferGeometry args={[width, height]} />
-          <meshBasicMaterial color="gray" />
-        </mesh>
+        <Box
+          scale={[thickness, height, depth]}
+          material={materials.Material_2146804362}
+          position={[-1 * (width / 2), height / 2, 0]}
+        />
+        <Box
+          scale={[width, height, thickness]}
+          material={materials.Material_2146804362}
+          position={[0, height / 2, -1 * (depth / 2)]}
+        />
+        <Box
+          scale={[thickness, height, depth]}
+          material={materials.Material_2146804362}
+          position={[width / 2, height / 2, 0]}
+        />
+        <Box
+          scale={[width, thickness, depth]}
+          material={materials.Material_2146804362}
+          position={[0, 0, 0]}
+        />
       </group>
     );
-  };
+  }
 
   function ThreeD({ width, height, depth, thickness, materials }) {
     return (
@@ -249,47 +265,15 @@ function Room() {
       <Container fluid>
         <Row>
           <div className="col-lg-1">
-          <Canvas>
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} />
-        <CameraControls />
-
-        <Furnitures />
-
-        <SoftShadows
-          // width={window.innerWidth}
-          // height={window.innerHeight}
-          // followCamera={true}
-          resolution={1024}
-          // blur={[2, 2]}
-          // samples={4}
-          // frustum={3.75}
-          // near={9.5}
-          // far={19.5}
-          // opacity={0.2}
-          // penumbra={1}
-          // darkness={0.5}
-          // // castShadow
-          // // frustum={3.75}
-          // // near={9.5}
-          // // far={19.5}
-          // // shadow-mapSize-width={512}
-          // // shadow-mapSize-height={512}
-          // // shadow-bias={-0.0001}
-          // // shadow-camera-left={-1}
-          // // shadow-camera-right={1}
-          // // shadow-camera-top={1}
-          // // shadow-camera-bottom={-1}
-          // // shadow-camera-near={0.1}
-          // // shadow-camera-far={1000}
-          // // shadow-camera-fov={45}
-          // // shadow-camera-aspect={1}
-          // // shadow-camera-projectionMatrix={null}
-          // // shadow-camera-children={[]}
-        />
-      </Canvas>
+            <Canvas>
+              <ambientLight intensity={0.5} />
+              <pointLight position={[10, 10, 10]} />
+              <CameraControls />
+              <Furnitures />
+              <SoftShadows resolution={1024} />
+            </Canvas>
           </div>
-
+{/* 
           <div className="col-lg-4">
             <div className="login-page">
               <div className="form">
@@ -334,31 +318,31 @@ function Room() {
                 </form>
               </div>
             </div>
-          </div>
-          <div className="col-lg-6">
+          </div> */}
+          <div className="col-lg-11">
             <div id="canvas-container">
               {show2DView ? (
-                <Canvas>
-                  <SoftShadows />
-                  <CameraControls />
-                  <Light />
-                  <TwoD
-                    width={width}
-                    height={height}
-                    depth={depth}
-                    thickness={thickness}
-                    materials={materials}
-                  />
-                </Canvas>
+               <Canvas shadows camera={{ position: [0, 80, 0], fov: 10 }}>
+               <ambientLight intensity={0.5} />
+               <pointLight position={[10, 10, 10]} />
+               {/* <CameraControls /> */}
+               <SoftShadows resolution={12} />
+               <TwoD
+                 width={width}
+                 height={height}
+                 depth={depth}
+                 thickness={thickness}
+                 materials={materials}
+               />
+               <RoomFurniture />
+             </Canvas>
               ) : (
                 <Canvas shadows camera={{ position: [0, 80, 0], fov: 10 }}>
-
-              
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} />
-        <CameraControls />
-
-        <ThreeD
+                  <ambientLight intensity={0.5} />
+                  <pointLight position={[10, 10, 10]} />
+                  <CameraControls />
+                  <SoftShadows resolution={12} />
+                  <ThreeD
                     width={width}
                     height={height}
                     depth={depth}
@@ -366,15 +350,7 @@ function Room() {
                     materials={materials}
                   />
                   <RoomFurniture />
-
-        <SoftShadows
-        
-          resolution={12}
-         
-        />
-      </Canvas>
-                
-
+                </Canvas>
               )}
             </div>
           </div>
