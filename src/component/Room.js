@@ -172,32 +172,41 @@ function Room() {
     );
   }
 
-  function TwoD({ width, height, depth, thickness, materials }) {
-    return (
-      <group dispose={null}>
-        <Box
-          scale={[thickness, height, depth]}
-          material={materials.Material_2146804362}
-          position={[-1 * (width / 2), height / 2, 0]}
-        />
-        <Box
-          scale={[width, height, thickness]}
-          material={materials.Material_2146804362}
-          position={[0, height / 2, -1 * (depth / 2)]}
-        />
-        <Box
-          scale={[thickness, height, depth]}
-          material={materials.Material_2146804362}
-          position={[width / 2, height / 2, 0]}
-        />
-        <Box
-          scale={[width, thickness, depth]}
-          material={materials.Material_2146804362}
-          position={[0, 0, 0]}
-        />
-      </group>
-    );
-  }
+function TwoD({ width, height, depth, thickness, materials }) {
+  const groupRef = useRef();
+
+  useFrame(({ mouse }) => {
+    const { x,y } = mouse;
+    const rotationY = (x - 0.5) * Math.PI * 2; 
+    const rotationX = (y - 0.5) * Math.PI * 2; 
+    groupRef.current.rotation.set(0,rotationY,0);
+  });
+
+  return (
+    <group ref={groupRef} dispose={null}>
+      <Box
+        scale={[thickness, height, depth]}
+        material={materials.Material_2146804362}
+        position={[-1 * (width / 2), height / 2, 0]}
+      />
+      <Box
+        scale={[width, height, thickness]}
+        material={materials.Material_2146804362}
+        position={[0, height / 2, -1 * (depth / 2)]}
+      />
+      <Box
+        scale={[thickness, height, depth]}
+        material={materials.Material_2146804362}
+        position={[width / 2, height / 2, 0]}
+      />
+      <Box
+        scale={[width, thickness, depth]}
+        material={materials.Material_2146804362}
+        position={[0, 0, 0]}
+      />
+    </group>
+  );
+}
 
   function ThreeD({ width, height, depth, thickness, materials }) {
     return (
