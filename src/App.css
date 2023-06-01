@@ -37,10 +37,6 @@
   }
 }
 
-#canvas-container {
-  height: 100vh;
-}
-
 
 .login-page {
   /* width: 20%; */
@@ -109,4 +105,18 @@
 }
 .can {
   display: block;
+}
+.convert-btn {
+ display: flex;
+ justify-content: flex-end;
+}
+canvas {
+  height: 600px !important;
+}
+.canvas-container {             
+ height: 111%;
+}
+.footer {
+  column-gap: 19px;
+  display: flex;
 }
