@@ -141,21 +141,6 @@ function Room() {
     );
   }
 
-<<<<<<< HEAD
-  function TwoD({ width, height, depth, thickness, materials }) {
-    const groupRef = useRef();
-
-    useFrame(({ mouse }) => {
-      const { x, y } = mouse;
-      const rotationY = (x - 0.5) * Math.PI * 2;
-      const rotationX = (y - 0.5) * Math.PI * 2;
-      groupRef.current.rotation.set(0, rotationY, 0);
-    });
-
-    return (
-      <group ref={groupRef} dispose={null}>
-        gi
-=======
   function TwoD({ width, depth, thickness, materials }) {
     const groupRef = useRef();
 
@@ -168,7 +153,6 @@ function Room() {
 
     return (
       <group ref={groupRef} dispose={null}>
->>>>>>> c8e3625e95192b6db30f126711929d565c4a6c7d
         <Box
           scale={[width, thickness, depth]}
           material={materials.Material_2146804362}
@@ -274,60 +258,6 @@ function Room() {
               <SoftShadows resolution={1024} />
             </Canvas>
           </div>
-<<<<<<< HEAD
-          <div className="col-lg-4">
-            <div className="login-page">
-              <div className="form">
-                <form className="login-form">
-                  <div className="property">
-                    <input
-                      type="text"
-                      placeholder="Height(cm)"
-                      onChange={onChangeHeight}
-                    />
-                    <input
-                      type="text"
-                      placeholder="Width(cm)"
-                      onChange={onChangeWidth}
-                    />
-                    <input
-                      type="text"
-                      placeholder="Depth(cm)"
-                      onChange={onChangeDepth}
-                    />
-                  </div>
-                  <div>
-                    <h6 className="display_flex">Color picker</h6>
-                    <div className="property">
-                      <InputColor
-                        initialValue="#5E72E4"
-                        onChange={handleColorChange}
-                        placement="left"
-                      />
-                    </div>
-                    <input
-                      type="text"
-                      placeholder="Wall Thickness(cm)"
-                      onChange={onChangeThickness}
-                    />
-                  </div>
-                  <div className="btns property">
-                    <Button className="save btn-primary">Save</Button>{" "}
-                    <span> &nbsp;</span>
-                    <Button className="save btn-primary">Reset</Button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>{" "}
-          <div className="col-lg-4">
-            <div id="canvas-container">
-              {show2DView ? (
-                <Canvas shadows camera={{ position: [0, 60, 0], fov: 10 }}>
-                  <ambientLight intensity={0.5} />
-                  <pointLight position={[10, 10, 10]} />
-                  {/* <CameraControls /> */}
-=======
           <div className="col-lg-10">
             <div id="canvas-container" className="canvas-container">
               {show2DView ? (
@@ -335,7 +265,6 @@ function Room() {
                   <ambientLight intensity={0.5} />
                   <pointLight position={[10, 10, 10]} />
 
->>>>>>> c8e3625e95192b6db30f126711929d565c4a6c7d
                   <SoftShadows resolution={12} />
                   <TwoD
                     width={width}
