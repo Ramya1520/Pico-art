@@ -172,41 +172,27 @@ function Room() {
     );
   }
 
-function TwoD({ width, height, depth, thickness, materials }) {
-  const groupRef = useRef();
+  function TwoD({ width, height, depth, thickness, materials }) {
+    const groupRef = useRef();
 
-  useFrame(({ mouse }) => {
-    const { x,y } = mouse;
-    const rotationY = (x - 0.5) * Math.PI * 2; 
-    const rotationX = (y - 0.5) * Math.PI * 2; 
-    groupRef.current.rotation.set(0,rotationY,0);
-  });
+    useFrame(({ mouse }) => {
+      const { x, y } = mouse;
+      const rotationY = (x - 0.5) * Math.PI * 2;
+      const rotationX = (y - 0.5) * Math.PI * 2;
+      groupRef.current.rotation.set(0, rotationY, 0);
+    });
 
-  return (
-    <group ref={groupRef} dispose={null}>
-      <Box
-        scale={[thickness, height, depth]}
-        material={materials.Material_2146804362}
-        position={[-1 * (width / 2), height / 2, 0]}
-      />
-      <Box
-        scale={[width, height, thickness]}
-        material={materials.Material_2146804362}
-        position={[0, height / 2, -1 * (depth / 2)]}
-      />
-      <Box
-        scale={[thickness, height, depth]}
-        material={materials.Material_2146804362}
-        position={[width / 2, height / 2, 0]}
-      />
-      <Box
-        scale={[width, thickness, depth]}
-        material={materials.Material_2146804362}
-        position={[0, 0, 0]}
-      />
-    </group>
-  );
-}
+    return (
+      <group ref={groupRef} dispose={null}>
+        gi
+        <Box
+          scale={[width, thickness, depth]}
+          material={materials.Material_2146804362}
+          position={[0, 0, 0]}
+        />
+      </group>
+    );
+  }
 
   function ThreeD({ width, height, depth, thickness, materials }) {
     return (
@@ -282,7 +268,6 @@ function TwoD({ width, height, depth, thickness, materials }) {
               <SoftShadows resolution={1024} />
             </Canvas>
           </div>
-{/* 
           <div className="col-lg-4">
             <div className="login-page">
               <div className="form">
@@ -327,24 +312,24 @@ function TwoD({ width, height, depth, thickness, materials }) {
                 </form>
               </div>
             </div>
-          </div> */}
-          <div className="col-lg-11">
+          </div>{" "}
+          <div className="col-lg-4">
             <div id="canvas-container">
               {show2DView ? (
-               <Canvas shadows camera={{ position: [0, 80, 0], fov: 10 }}>
-               <ambientLight intensity={0.5} />
-               <pointLight position={[10, 10, 10]} />
-               {/* <CameraControls /> */}
-               <SoftShadows resolution={12} />
-               <TwoD
-                 width={width}
-                 height={height}
-                 depth={depth}
-                 thickness={thickness}
-                 materials={materials}
-               />
-               <RoomFurniture />
-             </Canvas>
+                <Canvas shadows camera={{ position: [0, 60, 0], fov: 10 }}>
+                  <ambientLight intensity={0.5} />
+                  <pointLight position={[10, 10, 10]} />
+                  {/* <CameraControls /> */}
+                  <SoftShadows resolution={12} />
+                  <TwoD
+                    width={width}
+                    height={height}
+                    depth={depth}
+                    thickness={thickness}
+                    materials={materials}
+                  />
+                  <RoomFurniture />
+                </Canvas>
               ) : (
                 <Canvas shadows camera={{ position: [0, 80, 0], fov: 10 }}>
                   <ambientLight intensity={0.5} />
