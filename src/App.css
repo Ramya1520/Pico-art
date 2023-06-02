@@ -119,6 +119,7 @@ canvas {
   column-gap: 19px;
   display: flex;
   justify-content: center;
+  background-color: azure;
 }
 .all {
   margin-bottom: 155px;
