@@ -37,7 +37,6 @@
   }
 }
 
-
 .login-page {
   /* width: 20%; */
   /* padding: 1% 0 0; */
@@ -46,7 +45,7 @@
 .form {
   position: relative;
   z-index: 1;
-  background: #FFFFFF;
+  background: #ffffff;
   width: 100%;
   /* margin: 0 auto 100px; */
   margin-top: 50px;
@@ -93,30 +92,34 @@
 .form .register-form {
   display: none;
 }
-.btn-color{
-  background-color:#0d6efd !important;
+.btn-color {
+  background-color: #0d6efd !important;
 }
-.display_flex{
+.display_flex {
   display: flex;
 }
 .property {
   display: flex;
-    column-gap: 7px;
+  column-gap: 7px;
 }
 .can {
   display: block;
 }
 .convert-btn {
- display: flex;
- justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 canvas {
-  height: 600px !important;
+  height: 481px !important;
 }
-.canvas-container {             
- height: 111%;
+.canvas-container {
+  height: 111%;
 }
 .footer {
   column-gap: 19px;
   display: flex;
+  justify-content: center;
+}
+.all {
+  margin-bottom: 155px;
 }

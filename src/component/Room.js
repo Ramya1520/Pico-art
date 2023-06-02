@@ -1,11 +1,11 @@
-import React, {useRef, useState } from "react";
-import { Canvas, useFrame} from "@react-three/fiber";
+import React, { useRef, useState } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
 import "../App.css";
 import { SoftShadows, CameraControls, useGLTF } from "@react-three/drei";
-import { Button, Container, Row} from "reactstrap";
+import { Button, Container, Row } from "reactstrap";
 import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-
+import Header from "./Header.js";
 function Room() {
   const { materials } = useGLTF("/silvania_e_adilson.glb");
   const [show2DView, setShow2DView] = useState(false);
@@ -28,7 +28,13 @@ function Room() {
   let cup_1 = useLoader(GLTFLoader, "/cup_and_plate_1.glb");
 
   const items = [table_sofa, table, showcase, cup, television];
-  const duplicate_items = [table_sofa_1,table_1,showcase_1,cup_1,television_1,];
+  const duplicate_items = [
+    table_sofa_1,
+    table_1,
+    showcase_1,
+    cup_1,
+    television_1,
+  ];
 
   const Furnitures = () => {
     const tablePositions = [
@@ -135,13 +141,13 @@ function Room() {
     );
   }
 
-  function TwoD({ width,depth, thickness, materials }) {
+  function TwoD({ width, depth, thickness, materials }) {
     const groupRef = useRef();
 
     useFrame(({ mouse }) => {
-      const { x, y } = mouse;
+      const { x } = mouse;
       const rotationY = (x - 0.5) * Math.PI * 2;
-      
+
       groupRef.current.rotation.set(0, rotationY, 0);
     });
 
@@ -201,47 +207,47 @@ function Room() {
 
   const Footer = () => {
     return (
-      <React.Fragment>
-        <footer className="footer">
-          <span>Height:</span>
-          <input
-            type="text"
-            placeholder="Height(cm)"
-            onChange={(e) => onChangeHeight(e)}
-            value={height}
-          />
-          <span>Width:</span>
-          <input
-            type="text"
-            placeholder="Width(cm)"
-            onChange={(e) => onChangeWidth(e)}
-            value={width}
-          />
-          <span>Depth:</span>
-          <input
-            type="text"
-            placeholder="Depth(cm)"
-            onChange={(e) => onChangeDepth(e)}
-            value={depth}
-          />
-          <span>Wall Thickness:</span>
-          <input
-            type="text"
-            value={thickness}
-            onChange={(e) => onChangethickness(e)}
-          />
+      <div className="footer">
+        <h3>Room Size:</h3>
+        <span>Height:</span>
+        <input
+          type="text"
+          placeholder="Height(cm)"
+          onChange={(e) => onChangeHeight(e)}
+          value={height}
+        />
+        <span>Width:</span>
+        <input
+          type="text"
+          placeholder="Width(cm)"
+          onChange={(e) => onChangeWidth(e)}
+          value={width}
+        />
+        <span>Depth:</span>
+        <input
+          type="text"
+          placeholder="Depth(cm)"
+          onChange={(e) => onChangeDepth(e)}
+          value={depth}
+        />
+        <span>Wall Thickness:</span>
+        <input
+          type="text"
+          value={thickness}
+          onChange={(e) => onChangethickness(e)}
+        />
 
-          <Button onClick={toggleView}>
-            {show2DView ? "Switch to 3D" : "Switch to 2D"}
-          </Button>
-        </footer>
-      </React.Fragment>
+        <Button onClick={toggleView}>
+          {show2DView ? "Switch to 3D" : "Switch to 2D"}
+        </Button>
+      </div>
     );
   };
 
   return (
     <div>
-      <Container fluid>
+      <Header />
+      <Container fluid className="all">
         <Row>
           <div className="col-lg-1">
             <Canvas>
@@ -258,7 +264,7 @@ function Room() {
                 <Canvas shadows camera={{ position: [0, 80, 0], fov: 10 }}>
                   <ambientLight intensity={0.5} />
                   <pointLight position={[10, 10, 10]} />
-                  {/* <CameraControls /> */}
+
                   <SoftShadows resolution={12} />
                   <TwoD
                     width={width}
@@ -286,10 +292,10 @@ function Room() {
                 </Canvas>
               )}
             </div>
-            <Footer />
           </div>
         </Row>
       </Container>
+      <Footer />
     </div>
   );
 }
