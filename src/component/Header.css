@@ -1,0 +1,17 @@
+.header-item {
+  display: flex;
+  justify-content: center;
+}
+.logout {
+  display: flex;
+  column-gap: 27px;
+}
+.pt-16 {
+  padding-top: 16px;
+}
+.pb-16 {
+  padding-bottom: 16px;
+}
+.header-background {
+  background-color: aliceblue;
+}
