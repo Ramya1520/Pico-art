@@ -109,8 +109,12 @@
   display: flex;
   justify-content: flex-end;
 }
-canvas {
+.canvas-room {
   height: 481px !important;
+}
+.canvas-item {
+  height: 100px !important;
+  width: 82px !important;
 }
 .canvas-container {
   height: 111%;
@@ -122,5 +126,24 @@ canvas {
   background-color: azure;
 }
 .all {
-  margin-bottom: 155px;
+  margin-bottom: 177px;
+}
+.overall-item {
+  row-gap: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar {
+  display: flex;
+
+  justify-content: space-around;
+}
+.col-gap-9 {
+  column-gap: 9px;
+}
+.row-gap-9 {
+  row-gap: 9px;
+}
+.card-highlight:hover {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }

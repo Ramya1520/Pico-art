@@ -10,6 +10,8 @@ const MyContextProvider = ({ children }) => {
   const [height, setHeight] = useState(5);
   const [depth, setDepth] = useState(5);
   const [thickness, setThickness] = useState(0.2);
+  const [searchText, setSearchText] = useState("");
+  const [show3Dimage, setShow3Dimage] = useState([]);
 
   return (
     <MyContext.Provider
@@ -24,6 +26,10 @@ const MyContextProvider = ({ children }) => {
         setDepth,
         thickness,
         setThickness,
+        searchText,
+        setSearchText,
+        show3Dimage,
+        setShow3Dimage,
       }}
     >
       {children}

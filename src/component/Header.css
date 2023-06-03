@@ -1,6 +1,5 @@
 .header-item {
-  display: flex;
-  justify-content: center;
+  text-align: initial;
 }
 .logout {
   display: flex;
@@ -14,4 +13,7 @@
 }
 .header-background {
   background-color: aliceblue;
+}
+.pico-logo {
+  width: 91px;
 }
