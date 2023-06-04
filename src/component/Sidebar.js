@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { MyContext } from "./Context";
 import { Canvas } from "@react-three/fiber";
 import { Button } from "reactstrap";
+import Searchbar from "./Searchbar";
 const Furnitures = () => {
   let table_sofa = useLoader(GLTFLoader, "/table_sofa.glb");
   let table = useLoader(GLTFLoader, "/modern_dining_table.glb");
@@ -20,14 +21,7 @@ const Furnitures = () => {
   let television_1 = useLoader(GLTFLoader, "/80s_retro_television_1.glb");
   let cup_1 = useLoader(GLTFLoader, "/cup_and_plate_1.glb");
   let bed_1 = useLoader(GLTFLoader, "/stylized_bed_1.glb");
-  const [items, setItems] = useState([
-    table_sofa,
-    table,
-    showcase,
-    cup,
-    television,
-    bed,
-  ]);
+
   // const items = [{ table_sofa, table, showcase, cup, television, bed }];
 
   const duplicate_items = [
@@ -38,20 +32,8 @@ const Furnitures = () => {
     television_1,
     bed_1,
   ];
-  const { searchText, setSearchText, show3Dimage, setShow3Dimage } =
+  const { searchText, show3Dimage, setShow3Dimage, items } =
     useContext(MyContext);
-
-  const handleSearch = (e) => {
-    setSearchText(e.target.value);
-  };
-  const handleclick = () => {
-    if (searchText == "table") {
-      setItems([table_sofa, table]);
-    }
-    if (searchText == "sofa") {
-      setItems([table_sofa]);
-    }
-  };
 
   const tableScales = [
     { x: 0.005, y: 0.005, z: 0.005 },
@@ -67,16 +49,7 @@ const Furnitures = () => {
   return (
     <div className="overall-item border">
       <div className="sidebar row">
-        <input
-          className="col-lg-7"
-          type="text"
-          placeholder="Search..."
-          value={searchText}
-          onChange={handleSearch}
-        />
-        <Button className="col-lg-3" onClick={handleclick}>
-          Search
-        </Button>
+        <Searchbar />
       </div>
       <div className="row row-gap-9 d-flex justify-content-around">
         {items.map((furniture, index) => (
