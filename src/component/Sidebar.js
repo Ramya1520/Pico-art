@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { CameraControls } from "@react-three/drei";
@@ -20,8 +20,16 @@ const Furnitures = () => {
   let television_1 = useLoader(GLTFLoader, "/80s_retro_television_1.glb");
   let cup_1 = useLoader(GLTFLoader, "/cup_and_plate_1.glb");
   let bed_1 = useLoader(GLTFLoader, "/stylized_bed_1.glb");
+  const [items, setItems] = useState([
+    table_sofa,
+    table,
+    showcase,
+    cup,
+    television,
+    bed,
+  ]);
+  // const items = [{ table_sofa, table, showcase, cup, television, bed }];
 
-  const items = [table_sofa, table, showcase, cup, television, bed];
   const duplicate_items = [
     table_sofa_1,
     table_1,
@@ -36,6 +44,14 @@ const Furnitures = () => {
   const handleSearch = (e) => {
     setSearchText(e.target.value);
   };
+  const handleclick = () => {
+    if (searchText == "table") {
+      setItems([table_sofa, table]);
+    }
+    if (searchText == "sofa") {
+      setItems([table_sofa]);
+    }
+  };
 
   const tableScales = [
     { x: 0.005, y: 0.005, z: 0.005 },
@@ -45,6 +61,9 @@ const Furnitures = () => {
     { x: 10, y: 10, z: 10 },
     { x: 0.5, y: 0.5, z: 0.5 },
   ];
+  // console.log(items);
+  console.log(searchText);
+
   return (
     <div className="overall-item border">
       <div className="sidebar row">
@@ -55,7 +74,9 @@ const Furnitures = () => {
           value={searchText}
           onChange={handleSearch}
         />
-        <Button className="col-lg-3">Search</Button>
+        <Button className="col-lg-3" onClick={handleclick}>
+          Search
+        </Button>
       </div>
       <div className="row row-gap-9 d-flex justify-content-around">
         {items.map((furniture, index) => (
